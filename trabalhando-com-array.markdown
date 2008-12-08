@@ -10,16 +10,13 @@ Diferente de quando trabalhamos com coleções, em Java, é possível armazenar 
 
 Em ruby, existem diversas maneiras de se criar/inicializar um
 
-[source, ruby]
-------------------------
-a1 = ["a","b","c","d","e"]
-a2 = Array.[]("a","b","c","d","e")
-a3 = Array["a","b","c","d","e"]
-a4 = Array.new
-a5 = Array.new(5)
-a6 = Array.new(3,"OLA MUNDO")
-a7 = %w{a b c d e}
-------------------------
+	a1 = ["a","b","c","d","e"]
+	a2 = Array.[]("a","b","c","d","e")
+	a3 = Array["a","b","c","d","e"]
+	a4 = Array.new
+	a5 = Array.new(5)
+	a6 = Array.new(3,"OLA MUNDO")
+	a7 = %w{a b c d e}
 	
 Em ruby, existem diversas maneiras de se criar/inicializar um array. Vejamos algumas:
 
@@ -33,85 +30,59 @@ Se você foi esperto o suficiente, deve ter notado que eu falei que objetos não
 
 Acertou se você falou que todas as posições serão trocadas. Como seja definido um valor default no momento da criação do array, ruby cria apenas um objeto e faz com que todas as posições referenciem o mesmo objeto. Veja o código abaixo, que ilustra isso:
 
-[source, ruby]
-------------------------
-a6 = Array.new(3,"OLA MUNDO") #=> ["OLA MUNDO","OLA MUNDO","OLA MUNDO"]
-a6[0].downcase! # [" ola mundo"," ola mundo"," ola mundo"]
-------------------------
-
+	a6 = Array.new(3,"OLA MUNDO") #=> ["OLA MUNDO","OLA MUNDO","OLA MUNDO"]
+	a6[0].downcase! # [" ola mundo"," ola mundo"," ola mundo"]
+	
 Mas, então, qual o objetivo de se criar um array de N posições e iniciá-las com um valor default? Calma! Existe uma forma de contornar esse comportamente, digamos, estranho. Basta usar um bloco, e cada posição referenciará um objeto diferente. Quando utilizamos um bloco, estamos dizendo ao ruby para criar um objeto para cada posição
 
-[source, ruby]
-------------------------
-a6 = Array.new(3) { "OLA MUNDO" } #=> ["OLA MUNDO","OLA MUNDO","OLA MUNDO"]
-a6[0].downcase! #=> ["ola mundo","OLA MUNDO","OLA MUNDO"]
-------------------------
+	a6 = Array.new(3) { "OLA MUNDO" } #=> ["OLA MUNDO","OLA MUNDO","OLA MUNDO"]
+	a6[0].downcase! #=> ["ola mundo","OLA MUNDO","OLA MUNDO"]
+
 Quando um array cresce e um novo elemento é adicionado, o valor default é nil:
 
-[source, ruby]
-------------------------
-array = Array.new
-array[0] = "Alberto"
-array[5] = "Leal"	#=> ["Alberto", nil,nil,nil,nil, "Leal"]
-------------------------
-
+	array = Array.new
+	array[0] = "Alberto"
+	array[5] = "Leal"	#=> ["Alberto", nil,nil,nil,nil, "Leal"]
+	
 == Acessando e Atribuindo Elementos
 
 Para acessar algum elemento em um array, basta informar o índice ao método [ ]:
 
-[source, ruby]
-------------------------
-array = [1,2,3,4,5,6,7,8,9]
-primeiro_elemento = array[0]
-terceiro_elemento = array[2]
-------------------------
+	array = [1,2,3,4,5,6,7,8,9]
+	primeiro_elemento = array[0]
+	terceiro_elemento = array[2]
 
 Existe, ainda, uma outra opção, basta informar o índice ao método at:
 
-[source, ruby]
-------------------------
-array = [1,2,3,4,5,6,7,8,9]
-primeiro_elemento = array.at(0)
-terceiro_elemento = array.at(2)
-------------------------
-
+	array = [1,2,3,4,5,6,7,8,9]
+	primeiro_elemento = array.at(0)
+	terceiro_elemento = array.at(2)
+	
 Para ambos os métodos, [] e at, temos a opção de informar um inteiro negativo. Dessa forma, a contagem de posições para acessar o elemento será feita da direita para a esquerda. Por exemplo:
 
-[source, ruby]
-------------------------
-array = [1,2,3,4,5,6,7,8,9]
-primeiro_elemento = array[-2]
-terceiro_elemento = array.at(-3)
-------------------------
-
+	array = [1,2,3,4,5,6,7,8,9]
+	primeiro_elemento = array[-2]
+	terceiro_elemento = array.at(-3)
+	
 Se desejar verificar uma quantidade específica de posições, basta informar a quantidade desejada como segundo parâmetro para o método []. E, como primeiro parâmetro, informe a partir de qual posição no array que será iniciado. Exemplo:
 
-[source, ruby]
-------------------------
-array = [1,2,3,4,5,6,7,8,9]
-primeiro_elemento = array[0..2]
-------------------------
-
+	array = [1,2,3,4,5,6,7,8,9]
+	primeiro_elemento = array[0..2]
+	
 O método slice é um atalho para o método [], portanto:
 
-[source, ruby]
-------------------------
-primeiro_elemento = array[-2]
-------------------------
+	primeiro_elemento = array[-2]
+
 é o mesmo que:
 
-[source, ruby]
-------------------------
-primeiro_elemento = array.slice(-2)
-------------------------
+	primeiro_elemento = array.slice(-2)
+
 Caso você queira recuperar várias posições, existe o método values_at:
 
-[source, ruby]
-------------------------
-array = [1,2,3,4,5,6,7,8,9]
-result = array.values_at(0,2,4) #=> 1,3,5
-result2 = array.values_at(0..2,4) #=> 1,2,3,5
-------------------------
+	array = [1,2,3,4,5,6,7,8,9]
+	result = array.values_at(0,2,4) #=> 1,3,5
+	result2 = array.values_at(0..2,4) #=> 1,2,3,5
+	
 == Tamanho de um Array
 
 Dois métodos são bastante usados quando é desejável obter o tamanho de um array.

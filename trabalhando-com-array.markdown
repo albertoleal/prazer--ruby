@@ -135,4 +135,132 @@ Entretando, se for comparado arrays de diferentes tamanhos, e o "elemento estran
 	if d1 > d2
 		print "não aconteceu o erro"
 	end
-		
+
+* Para fazer comparações utilizando os métodos >, <, >=, <= é necessário definí-los via duck typing na classe Array, ou fazer com que a classe inclua o módulo Comparable, o que seria melhor.
+
+== Ordenando um Array
+
+	array = %w{e h b g  k l k h s a}
+	ordenado = array.sort 
+
+O exemplo acima é completamente auto-explicativo. A classe Array possui um método sort, responsável por fazer a ordenação do array, sem maiores esforços.
+
+Existe a possibilidade de definir a forma como os elementos serão comparados. Para isso, basta passar um bloco para o método sort:
+
+	numeros = %w{1 2 4 3 5 6}
+	ordenados = numeros.sort {|a,b| b <=> a} #[6,5,4,3,2,1]
+
+== Recuperando elementos a partir de um critério
+
+* detect = find - Recupera um elemento a partir do critério informado.
+* find_all = select -  Recupera todos os elementos encontrados para o critério informado.
+* grep - Recupera todos os elementos encontrados para o pattern passado.
+* reject - Retira os elementos do array.
+
+	numeros = [1, 2, 3, 4, 5, 6]
+	numeros.detect { |elem| elem % 2 ==0 } # 2
+	numeros.select { |elem| elem % 2 ==0 } # 2, 4, 6
+	numeros.grep(2..4) # 2, 3, 4
+	numeros.reject { |elem| elem % 2 ==0 } # 1, 3, 5
+	
+== Mapeando um Array
+
+* Ao utilizar os métodos map ou collect,  os elementos sao retirados do array
+
+	numeros = %w[1, 2, 3, 4, 5, 6]
+	numeros.map! { |elem| puts elem } 
+	puts numeros
+	numeros = %w[1, 2, 3, 4, 5, 6]
+	numeros.collect! { |elem| puts elem }
+	puts numeros
+
+== Removendo elementos de um array
+
+* Repare que, quando iniciamos o nosso array utilizando %w, todos os elementos inseridos são do tipo string. Com isso, quando utilizamos o método compact! não funciona da forma como esperamos.
+
+O método compact remove todos os valores nulos de um array:
+
+	numeros = %w[1, 2, nil, 3, 4, nil, nil, 5, 6]
+	numeros.compact!  
+	puts numeros #["1,", "2,", "nil,", "3,", "4,", "nil,", "nil,", "5,", "6"]
+	numeros = [1, 2, nil, 3, 4, nil, nil, 5, 6]
+	numeros.compact!  
+	puts numeros # [1, 2, 3, 4, 5, 6]
+
+Caso você saiba o índice do elemento a ser deletado, utilize o método delete_at:
+
+	numeros = [1, 2, nil, 3, 4, nil, nil, 5, 6]
+	numeros.delete_at(4)
+	
+Mas, se você não sabe o índice e sabe o valor que deseja deletar do array, então utilize o método delete (esse método retorna nil quando não encontra a expressão informada):
+
+	palavras = %w[revista rails ruby Java perl]
+	palavras.delete("perl")
+	
+Se desejar fazer alguma validação antes de excluir algo do array, então utilize o método delete_if. Com ele, todos os elementos serão passados para bloco. Caso a condição contida dentro do bloco seja satisfeita, o elemento é deletado:
+
+	palavras = %w[revista rails ruby Java perl]
+	palavras.delete_if{|palavra| palavra.length == 5}
+	
+Vimos anteriormente que, o método slice é um alias para o método []. Agora, vamos olhar o método slice!. Ele recupera o mesmo elemento que slice, porém com uma diferença. Ele exclui o elemento encontrado do array:
+
+	numeros = [1, 2, nil, 3, 4, nil, nil, 5, 6]
+	numero_escolhido = numeros.slice!(4) #=> 4
+	numeros_escolhidos = numeros.slice!(0,3) #=> 1,2,nil
+	outros_numeros_escolhidos = numeros.slice!(2..3) #=> nil, 3
+	
+Quando se estiver trabalhando com pilhas e filas no ruby, pode ser necessário excluir o primeiro e/ou o último elemento do array. Para tais tarefas, existem os métodos shift e pop , respectivamente.
+
+	numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+	numeros.pop
+	numeros.shift
+
+Quer apagar todo o array? Utilize o método clear:
+
+	numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+	numeros.clear
+	
+== Concatenando e Acionando valores a Arrays
+
+Para adicionar valores a um array, utilize o operador append "<<"
+
+Para adicionar um array ao outro, literalmente, ou seja, não apenas os valores, mas o array, utilize os métodos unshift e push para adicionar o array no início e no fim, respectivamente.
+
+	exemplo
+
+Agora, para somar o conteúdo de dois ou mais arrays, utilize o método + ou += ou concat. Mas, tenha em mente que os métodos += e << criam uma nova instância da classe.
+
+	o = [1,2,3,4]
+	i = [3,4,5,6]
+	puts o.object_id
+	o += i
+	puts o.object_id
+	
+== Iterando em um Array
+
+	numeros = [1,2,3,4]
+	numeros.each { |num| puts num }
+	numeros.collect { |num| puts num }
+	
+Muitas são as formas de se iterar um array. Vejamos algumas:
+
+	exemplo
+
+Se desejar percorrer apenas pelo índice, utilize o método each_index
+
+* Nota: Repare que, quando iniciamos o nosso array utilizando %w, todos os elementos inseridos são do tipo string. Com isso, quando utilizamos o método compact! não funciona da forma como esperamos.
+
+== Adicionando delimitadores
+
+Às vezes desejamos adicionar delimitadores entre os elementos contidos em um array para exibí-los para o usuário, por exemplo. Para tal tarefa, existe o método join.
+
+	numeros = [1,2,3,4]
+	numeros.join() #=> 1234
+	numeros.join("-") #=> 1-2-3-4
+	
+== Removendo elementos duplicados
+
+Você pode usar o método uniq:
+
+	numeros = [1,2,3,4,2,3,8,9,7]
+	numeros.uniq  # [1, 2, 3, 4, 8, 9, 7]

@@ -226,7 +226,9 @@ Para adicionar valores a um array, utilize o operador append "<<"
 
 Para adicionar um array ao outro, literalmente, ou seja, não apenas os valores, mas o array, utilize os métodos unshift e push para adicionar o array no início e no fim, respectivamente.
 
-	exemplo
+	irb(main):001:0> array = %w[1 2 3 4 5] # => ["1", "2", "3", "4", "5"]
+	irb(main):002:0> array.unshift("a", "b") # => ["a", "b", "1", "2", "3", "4", "5"]
+	irb(main):003:0> array.push("c", "d") # => ["a", "b", "1", "2", "3", "4", "5", "c", "d"]
 
 Agora, para somar o conteúdo de dois ou mais arrays, utilize o método + ou += ou concat. Mas, tenha em mente que os métodos += e << criam uma nova instância da classe.
 

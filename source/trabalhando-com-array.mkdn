@@ -1,4 +1,4 @@
-= Trabalhando com Array
+# Trabalhando com Array
 
 Assim como em outras linguagens de programação, array no ruby é indexado por inteiros e começa com o número 0(zero).
 
@@ -6,7 +6,7 @@ Assim como em PHP, por exemplo, array no ruby é dinâmico, ou seja, não é nec
 
 Diferente de quando trabalhamos com coleções, em Java, é possível armazenar diversos tipos de objetos em um único array em ruby. Aliás, não se armazena o objeto propriamente dito, e sim um ponteiro, uma referência para acessá-lo. A menos que o objeto seja imediato, por exemplo, um objeto da classe Fixnum.
 
-== Criando e inicializando um array
+## Criando e inicializando um array
 
 Em ruby, existem diversas maneiras de se criar/inicializar um
 
@@ -22,9 +22,9 @@ Em ruby, existem diversas maneiras de se criar/inicializar um array. Vejamos alg
 
 Tudo parece legal e auto-explicativo, mas algumas pessoas estranham a última expressão. Temos 3 formas de se criar um array quando utilizamos o método new:
 
-1º - Sem parâmetro
-2º - Com 1 parâmetro (tamanho inicial do array a ser criado).
-3º - Com 2 parâmetros. O primeiro parâmetro refere-se ao tamanho inicial a ser criado e o segundo parâmetro ao valor inicial de cada posição.
+	* Sem parâmetro
+	* Com 1 parâmetro (tamanho inicial do array a ser criado).
+	* Com 2 parâmetros. O primeiro parâmetro refere-se ao tamanho inicial a ser criado e o segundo parâmetro ao valor inicial de cada posição.
 
 Se você foi esperto o suficiente, deve ter notado que eu falei que objetos não são armazenados diretamente em um array, o que existe são ponteiros para o mesmo objeto, com exeção de valores imediatos, como objetos da classe Fixnum. Então, o que você acha que acontece quando indicamos um valor inicial para cada posição no array, e, logo em seguida alteramos o valor de uma posição?
 
@@ -44,7 +44,7 @@ Quando um array cresce e um novo elemento é adicionado, o valor default é nil:
 	array[0] = "Alberto"
 	array[5] = "Leal"	#=> ["Alberto", nil,nil,nil,nil, "Leal"]
 	
-== Acessando e Atribuindo Elementos
+## Acessando e Atribuindo Elementos
 
 Para acessar algum elemento em um array, basta informar o índice ao método [ ]:
 
@@ -83,7 +83,7 @@ Caso você queira recuperar várias posições, existe o método values_at:
 	result = array.values_at(0,2,4) #=> 1,3,5
 	result2 = array.values_at(0..2,4) #=> 1,2,3,5
 	
-== Tamanho de um Array
+## Tamanho de um Array
 
 Dois métodos são bastante usados quando é desejável obter o tamanho de um array.
 
@@ -97,7 +97,7 @@ Dois métodos são bastante usados quando é desejável obter o tamanho de um ar
 	
 * Se quiser visualizar o conteúdo de um array, utilize o método inspect.
 
-== Comparando arrays
+## Comparando arrays
 
 Para comparar arrays, utilizamos o método <=>. Esse método retorna -1 quando o objeto do lado esquerdo da operação é menor do que o lado direito, 0 quando os objetos são iguais e 1 quando o objeto do lado direito é maior do que o do lado esquerdo.
 
@@ -138,7 +138,7 @@ Entretando, se for comparado arrays de diferentes tamanhos, e o "elemento estran
 
 * Para fazer comparações utilizando os métodos >, <, >=, <= é necessário definí-los via duck typing na classe Array, ou fazer com que a classe inclua o módulo Comparable, o que seria melhor.
 
-== Ordenando um Array
+## Ordenando um Array
 
 	array = %w{e h b g  k l k h s a}
 	ordenado = array.sort 
@@ -150,7 +150,7 @@ Existe a possibilidade de definir a forma como os elementos serão comparados. P
 	numeros = %w{1 2 4 3 5 6}
 	ordenados = numeros.sort {|a,b| b <=> a} #[6,5,4,3,2,1]
 
-== Recuperando elementos a partir de um critério
+## Recuperando elementos a partir de um critério
 
 * detect = find - Recupera um elemento a partir do critério informado.
 * find_all = select -  Recupera todos os elementos encontrados para o critério informado.
@@ -158,12 +158,12 @@ Existe a possibilidade de definir a forma como os elementos serão comparados. P
 * reject - Retira os elementos do array.
 
 	numeros = [1, 2, 3, 4, 5, 6]
-	numeros.detect { |elem| elem % 2 ==0 } # 2
-	numeros.select { |elem| elem % 2 ==0 } # 2, 4, 6
+	numeros.detect { |elem| elem % 2 ##0 } # 2
+	numeros.select { |elem| elem % 2 ##0 } # 2, 4, 6
 	numeros.grep(2..4) # 2, 3, 4
-	numeros.reject { |elem| elem % 2 ==0 } # 1, 3, 5
+	numeros.reject { |elem| elem % 2 ##0 } # 1, 3, 5
 	
-== Mapeando um Array
+## Mapeando um Array
 
 * Ao utilizar os métodos map ou collect,  os elementos sao retirados do array
 
@@ -174,7 +174,7 @@ Existe a possibilidade de definir a forma como os elementos serão comparados. P
 	numeros.collect! { |elem| puts elem }
 	puts numeros
 
-== Removendo elementos de um array
+## Removendo elementos de um array
 
 * Repare que, quando iniciamos o nosso array utilizando %w, todos os elementos inseridos são do tipo string. Com isso, quando utilizamos o método compact! não funciona da forma como esperamos.
 
@@ -200,7 +200,7 @@ Mas, se você não sabe o índice e sabe o valor que deseja deletar do array, en
 Se desejar fazer alguma validação antes de excluir algo do array, então utilize o método delete_if. Com ele, todos os elementos serão passados para bloco. Caso a condição contida dentro do bloco seja satisfeita, o elemento é deletado:
 
 	palavras = %w[revista rails ruby Java perl]
-	palavras.delete_if{|palavra| palavra.length == 5}
+	palavras.delete_if{|palavra| palavra.length ## 5}
 	
 Vimos anteriormente que, o método slice é um alias para o método []. Agora, vamos olhar o método slice!. Ele recupera o mesmo elemento que slice, porém com uma diferença. Ele exclui o elemento encontrado do array:
 
@@ -220,7 +220,7 @@ Quer apagar todo o array? Utilize o método clear:
 	numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 	numeros.clear
 	
-== Concatenando e Acionando valores a Arrays
+## Concatenando e Acionando valores a Arrays
 
 Para adicionar valores a um array, utilize o operador append "<<"
 
@@ -238,7 +238,7 @@ Agora, para somar o conteúdo de dois ou mais arrays, utilize o método + ou += 
 	o += i
 	puts o.object_id
 	
-== Iterando em um Array
+## Iterando em um Array
 
 	numeros = [1,2,3,4]
 	numeros.each { |num| puts num }
@@ -252,7 +252,7 @@ Se desejar percorrer apenas pelo índice, utilize o método each_index
 
 * Nota: Repare que, quando iniciamos o nosso array utilizando %w, todos os elementos inseridos são do tipo string. Com isso, quando utilizamos o método compact! não funciona da forma como esperamos.
 
-== Adicionando delimitadores
+## Adicionando delimitadores
 
 Às vezes desejamos adicionar delimitadores entre os elementos contidos em um array para exibí-los para o usuário, por exemplo. Para tal tarefa, existe o método join.
 
@@ -260,7 +260,7 @@ Se desejar percorrer apenas pelo índice, utilize o método each_index
 	numeros.join() #=> 1234
 	numeros.join("-") #=> 1-2-3-4
 	
-== Removendo elementos duplicados
+## Removendo elementos duplicados
 
 Você pode usar o método uniq:
 

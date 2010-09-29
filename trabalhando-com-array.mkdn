@@ -70,14 +70,18 @@ Para ambos os métodos, [] e at, temos a opção de informar um inteiro negativo
 	terceiro_elemento = array.at(-3)
 
 	
-Se desejar recuperar apenas alguns índices do array, basta informar as posições desejadas como segundo parâmetro para o método [].Exemplo:	array = [1,2,3,4,5,6,7,8,9]
+Se desejar recuperar apenas alguns índices do array, basta informar as posições desejadas como segundo parâmetro para o método [].Exemplo:	
+	array = [1,2,3,4,5,6,7,8,9]
 	primeiro_elemento = array[0..2]
 
 	
-O método slice é um atalho para o método [], portanto:	primeiro_elemento = array[-2]
+O método slice é um atalho para o método [], portanto:	
+	
+	primeiro_elemento = array[-2]
 
+é o mesmo que:	
 
-é o mesmo que:	primeiro_elemento = array.slice(-2)
+	primeiro_elemento = array.slice(-2)
 
 
 Mas, cuidado ao utilizá-lo desta maneira. Particularmente, eu não recomendo, pois o método slice tem como objetivo remover o elemento solicitado e retorná-lo. Mas, neste caso, como estamos utilizando o slice e não o método slice!, com (!)exclamação, o objeto original - array - não está sofrendo mudanças. Evite utilizar slice para recuperar um elemento de um array.
@@ -142,7 +146,7 @@ Entretando, se for comparado arrays de diferentes tamanhos, e o "elemento estran
 
 * Nota: Para fazer comparações utilizando os métodos >, <, >=, <= é necessário definí-los via duck typing na classe Array, ou fazer com que a classe inclua o módulo Comparable, o que seria melhor: 
 	class Array
-		include Comparable
+	include Comparable
 	end
 
 
@@ -174,6 +178,7 @@ Existe a possibilidade de definir a forma como os elementos serão comparados. P
 * find_all == select -  Recupera todos os elementos encontrados para o critério informado.
 * grep - Recupera todos os elementos encontrados para o pattern passado.
 * reject - Retira os elementos do array.
+
 	numeros = [1, 2, 3, 4, 5, 6]
 	numeros.detect { |elem| elem % 2 == 0 } # 2
 	numeros.select { |elem| elem % 2 == 0 } # 2, 4, 6

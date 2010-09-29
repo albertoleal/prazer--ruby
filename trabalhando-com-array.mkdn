@@ -190,7 +190,6 @@ Existe a possibilidade de definir a forma como os elementos serão comparados. P
 ## Mapeando um Array
 
 * Ao utilizar os métodos map ou collect, os elementos são "retirados" do array, porém o objeto original(numeros) não sofre nenhuma mudança, ou seja, seu contéudo continua lá. Somente se você utilizar (!)exclamação é que o objeto original será modificado. Está já é a segunda vez que falamos que métodos que terminam com ! modificam o estado original do objeto. Isso é do ruby, portanto grave isso ;)
-
 	numeros = %w[1, 2, 3, 4, 5, 6]
 	numeros.map! { |elem| puts elem } 
 	puts numerosnumeros = %w[1, 2, 3, 4, 5, 6]

@@ -9,15 +9,14 @@ Diferente de quando trabalhamos com coleções, em Java, é possível armazenar 
 ## Criando e inicializando um array
 
 Em ruby, existem diversas maneiras de se criar/inicializar um array. Vamos ver algumas dessas:
-
-<pre><code>a1 = ["a","b","c","d","e"]
+	a1 = ["a","b","c","d","e"]
 	a2 = Array.[]("a","b","c","d","e")
 	a3 = Array["a","b","c","d","e"]
 	a4 = Array.new
 	a5 = Array.new(5)
 	a6 = Array.new(3,"OLA MUNDO")
 	a7 = %w{a b c d e}
-</code></pre>	
+	
 
 Tudo parece legal e auto-explicativo, mas algumas pessoas estranham a última expressão. Mas, vai se acostumando pois está é uma das formas mais utilizadas :-) 
 
@@ -32,85 +31,73 @@ Se você foi esperto o suficiente, deve ter notado que eu falei que objetos não
 Pense um pouco nisso....
 
 Acertou se você falou que todas as posições serão trocadas. Como seja definido um valor default no momento da criação do array, ruby cria apenas um objeto e faz com que todas as posições referenciem o mesmo objeto. Veja o código abaixo, que ilustra isso:
-
-<pre><code>a6 = Array.new(3,"OLA MUNDO") #=> ["OLA MUNDO","OLA MUNDO","OLA MUNDO"]
+	a6 = Array.new(3,"OLA MUNDO") #=> ["OLA MUNDO","OLA MUNDO","OLA MUNDO"]
 	a6[0].downcase! # [" ola mundo"," ola mundo"," ola mundo"]
-</code></pre>
+
 	
 Mas, então, qual o objetivo de se criar um array de N posições e iniciá-las com um valor default? Calma! Existe uma forma de contornar esse comportamente, digamos, estranho. Basta usar um bloco, e cada posição referenciará um objeto diferente. Quando utilizamos um bloco, estamos dizendo ao ruby para criar um objeto para cada posição:
-
-<pre><code>a6 = Array.new(3) { "OLA MUNDO" } #=> ["OLA MUNDO","OLA MUNDO","OLA MUNDO"]
+	a6 = Array.new(3) { "OLA MUNDO" } #=> ["OLA MUNDO","OLA MUNDO","OLA MUNDO"]
 	a6[0].downcase! #=> ["ola mundo","OLA MUNDO","OLA MUNDO"]
-</code></pre>
+
 
 Quando um array cresce e um novo elemento é adicionado, o valor default é nil:
-
-<pre><code>array = Array.new
+	array = Array.new
 	array[0] = "Alberto"
 	array[5] = "Leal"	#=> ["Alberto", nil,nil,nil,nil, "Leal"]
-</code></pre>
+
 	
 ## Acessando e Atribuindo Elementos
 
 Para acessar algum elemento em um array, basta informar o índice ao método [ ] da classe Array:
-
-<pre><code>array = [1,2,3,4,5,6,7,8,9]
+	array = [1,2,3,4,5,6,7,8,9]
 	primeiro_elemento = array[0]
 	terceiro_elemento = array[2]
-</code></pre>
+
 
 Calma lá, [] é um método?! Sim. Tudo em ruby é um objeto. Caso você queira comprovar isso, basta executar o seguinte comando no irb: Array.methods e você encontrará o [].
 
 Existe, ainda, uma outra opção, basta informar o índice ao método at:
-
-<pre><code>array = [1,2,3,4,5,6,7,8,9]
+	array = [1,2,3,4,5,6,7,8,9]
 	primeiro_elemento = array.at(0)
 	terceiro_elemento = array.at(2)
-</code></pre>
+
 
 * Nota: Se você optar por utilizar o método "at", os parenteses são opcionais. Você pode chamar assim: array.at 2.
 	
 Para ambos os métodos, [] e at, temos a opção de informar um inteiro negativo. Dessa forma, a contagem de posições para acessar o elemento será feita da direita para a esquerda. Por exemplo:
-
-<pre><code>array = [1,2,3,4,5,6,7,8,9]
+	array = [1,2,3,4,5,6,7,8,9]
 	primeiro_elemento = array[-2]
 	terceiro_elemento = array.at(-3)
-</code></pre>
-	
-Se desejar recuperar apenas alguns índices do array, basta informar as posições desejadas como segundo parâmetro para o método [].Exemplo:
-<pre><code>array = [1,2,3,4,5,6,7,8,9]
-	primeiro_elemento = array[0..2]
-</code></pre>
-	
-O método slice é um atalho para o método [], portanto:
-<pre><code>
-	primeiro_elemento = array[-2]
-</code></pre>
 
-é o mesmo que:
-<pre><code>primeiro_elemento = array.slice(-2)
-</code></pre>
+	
+Se desejar recuperar apenas alguns índices do array, basta informar as posições desejadas como segundo parâmetro para o método [].Exemplo:	array = [1,2,3,4,5,6,7,8,9]
+	primeiro_elemento = array[0..2]
+
+	
+O método slice é um atalho para o método [], portanto:	primeiro_elemento = array[-2]
+
+
+é o mesmo que:	primeiro_elemento = array.slice(-2)
+
 
 Mas, cuidado ao utilizá-lo desta maneira. Particularmente, eu não recomendo, pois o método slice tem como objetivo remover o elemento solicitado e retorná-lo. Mas, neste caso, como estamos utilizando o slice e não o método slice!, com (!)exclamação, o objeto original - array - não está sofrendo mudanças. Evite utilizar slice para recuperar um elemento de um array.
 
 Caso você queira recuperar várias posições, existe o método values_at:
-
-<pre><code>array = [1,2,3,4,5,6,7,8,9]
+	array = [1,2,3,4,5,6,7,8,9]
 	result = array.values_at(0,2,4) #=> 1,3,5
 	result2 = array.values_at(0..2,4) #=> 1,2,3,5
-</code></pre>
+
 	
 ## Tamanho de um Array
 Dois métodos são bastante usados quando é desejável obter o tamanho de um array:
 
 	* length - possui um alias size
 	* nitems - desconsidera posições nulas (nil)
-
-<pre><code>array = [1,2,3,4,5,6,7,8,9, nil, 10]
+	array = [1,2,3,4,5,6,7,8,9, nil, 10]
 	puts array.length #=> 11
 	puts array.size #=> 11
 	puts array.nitems #=> 10
-</code></pre>
+
 	
 * Se quiser visualizar o conteúdo de um array, utilize o método inspect.
 
@@ -119,26 +106,23 @@ Dois métodos são bastante usados quando é desejável obter o tamanho de um ar
 Para comparar arrays, utilizamos o método <=>. Esse método retorna -1 quando o objeto do lado esquerdo da operação é menor do que o lado direito, 0 quando os objetos são iguais e 1 quando o objeto do lado direito é menor do que o do lado esquerdo.
 
 Quando comparamos arrays, os elementos são comparados um a um, posição a posição. Assim que a primeira comparação falha, isto é, quando os objetos não são iguais, a comparação chega ao fim.Vejamos um exemplo:
-
-<pre><code>b1 = [1,2,3,4,5]
+	b1 = [1,2,3,4,5]
 	b2 = [1,2,4,1,1]
 	re = b1 <=> b2 # -1
-</code></pre>
+
 	
 Quando é feita a comparação na posição 2, é constatado que b1 é menor do que b2, mesmo que todo o resto de b2 seja menor do que b1.
 
 Quando os elementos dos arrays são iguais, então a comparação retorna 0. Por outro lado, se os arrays possuem tamanhos diferentes, mas seus elementos são iguais até o momento da desigualdade de tamanho, o array que possuir um tamanho maior é considerado maior.
-
-<pre><code>c1 = [1,2,3,4,5]
+	c1 = [1,2,3,4,5]
 	c2 = [1,2,3,4,5,6,7]
 	re = c1 <=> c2  # -1
-</code></pre>
+
 	
 Falei anteriormente que, é permitido armazenar diferente tipos de objetos dentro de um mesmo array. Então, o que aconteceria se tentarmos comparar arrays, onde elementos de diferentes tipos tivessem de ser comparados?
 
 Nesse caso, haverá um erro, ArgummentError!
-
-<pre><code>d1 = [1,2,3,4,5]
+	d1 = [1,2,3,4,5]
 	d2 = [1,2,”nb”,4,5]
 	if d1 > d2
 		puts "não aconteceu o erro"
@@ -146,49 +130,43 @@ Nesse caso, haverá um erro, ArgummentError!
 	ArgumentError: comparison of Array with Array failed
 		from (irb):60:in `>'
 		from (irb):60
-</code></pre>
+
 
 Entretando, se for comparado arrays de diferentes tamanhos, e o "elemento estranho" estiver em uma posição superior, ou seja, que não será necessário fazer a comparação, não há nenhum problema
-
-<pre><code>d1 = [1,2,3,4,5]
+	d1 = [1,2,3,4,5]
 	d2 = [1,2,3,4,5,"nb"]
 	if d1 > d2
 		print "não aconteceu o erro"
 	end
-</code></pre>
+
 
 * Nota: Para fazer comparações utilizando os métodos >, <, >=, <= é necessário definí-los via duck typing na classe Array, ou fazer com que a classe inclua o módulo Comparable, o que seria melhor: 
-
-<pre><code>class Array
+	class Array
 		include Comparable
 	end
-</code></pre>
+
 
 ## Ordenando um Array
-
-<pre><code>array = %w{e h b g  k l k h s a}
+	array = %w{e h b g  k l k h s a}
 	ordenado = array.sort 
-</code></pre>
+
 
 O exemplo acima é completamente auto-explicativo. A classe Array possui um método sort, responsável por fazer a ordenação do array, sem maiores esforços. O mesmo vale para array de números:
-
-<pre><code>array = %w{1 6 2 5 74 52 44 23 12 9 }
+	array = %w{1 6 2 5 74 52 44 23 12 9 }
 	ordenado = array.sort 
 	# ["1", "12", "2", "23", "44", "5", "52", "6", "74", "9"]
-</code></pre>
+
 
 Uai, isso aí não está ordenado não!! Lembra quando eu falei sobre comparações de elementos em um array, e que ele compara o primeiro elemento e vê se é maior e coisa e tal?! Pois então, neste caso, a linguagem não está tratando o elemento por si só como um objeto como inteiro. Para atingir o resultado desejado - que é ordenar os números - faça com que os elementos sejam comparados como sendo um objeto da classe Fixnum, e não como se fosse um objeto da classe String (Quando utilizamso %w{} os elementos são tratados como String):
-
-<pre><code>array = %w{1 6 2 5 74 52 44 23 12 9 }
+	array = %w{1 6 2 5 74 52 44 23 12 9 }
 	array.sort {|x,y| x.to_i <=> y.to_i }
 	# ["1", "2", "5", "6", "9", "12", "23", "44", "52", "74"] 
-</code></pre>
+
 
 Existe a possibilidade de definir a forma como os elementos serão comparados. Para isso, basta passar um bloco para o método sort:
-
-<pre><code>numeros = %w{1 2 4 3 5 6}
+	numeros = %w{1 2 4 3 5 6}
 	ordenados = numeros.sort {|a,b| b <=> a} #[6,5,4,3,2,1]
-</code></pre>
+
 
 ## Recuperando elementos a partir de um critério
 
@@ -196,115 +174,102 @@ Existe a possibilidade de definir a forma como os elementos serão comparados. P
 * find_all == select -  Recupera todos os elementos encontrados para o critério informado.
 * grep - Recupera todos os elementos encontrados para o pattern passado.
 * reject - Retira os elementos do array.
-
-<pre><code>numeros = [1, 2, 3, 4, 5, 6]
+	numeros = [1, 2, 3, 4, 5, 6]
 	numeros.detect { |elem| elem % 2 == 0 } # 2
 	numeros.select { |elem| elem % 2 == 0 } # 2, 4, 6
 	numeros.grep(2..4) # 2, 3, 4
 	numeros.reject { |elem| elem % 2 == 0 } # 1, 3, 5
-</code></pre>
+
 	
 ## Mapeando um Array
 
 * Ao utilizar os métodos map ou collect, os elementos são "retirados" do array, porém o objeto original(numeros) não sofre nenhuma mudança, ou seja, seu contéudo continua lá. Somente se você utilizar (!)exclamação é que o objeto original será modificado. Está já é a segunda vez que falamos que métodos que terminam com ! modificam o estado original do objeto. Isso é do ruby, portanto grave isso ;)
-
-<pre><code>numeros = %w[1, 2, 3, 4, 5, 6]
+	numeros = %w[1, 2, 3, 4, 5, 6]
 	numeros.map! { |elem| puts elem } 
 	puts numeros
 	numeros = %w[1, 2, 3, 4, 5, 6]
 	numeros.collect! { |elem| puts elem }
 	puts numeros
-</code></pre>
+
 
 ## Removendo elementos de um array
 
 * Repare que, quando iniciamos o nosso array utilizando %w, todos os elementos inseridos são do tipo string. Com isso, quando utilizamos o método compact! não funciona da forma como esperamos, que seria remover todos os elementos nulos do array:
-
-<pre><code>numeros = %w[1, 2, nil, 3, 4, nil, nil, 5, 6] #nil será tratado como String.
+	numeros = %w[1, 2, nil, 3, 4, nil, nil, 5, 6] #nil será tratado como String.
 	numeros.compact!  
 	puts numeros #["1,", "2,", "nil,", "3,", "4,", "nil,", "nil,", "5,", "6"]
 	numeros = [1, 2, nil, 3, 4, nil, nil, 5, 6]
 	numeros.compact!  
 	puts numeros # [1, 2, 3, 4, 5, 6]
-</code></pre>
+
 
 Caso você saiba o índice do elemento a ser deletado, utilize o método delete_at:
-
-<pre><code>numeros = [1, 2, nil, 3, 4, nil, nil, 5, 6]
+	numeros = [1, 2, nil, 3, 4, nil, nil, 5, 6]
 	numeros.delete_at(4) #parenteses não é obrigatório
-</code></pre>
+
 	
 Mas, se você não sabe o índice e sabe o valor que deseja deletar do array, então utilize o método delete (esse método retorna nil quando não encontra a expressão informada):
-
-<pre><code>palavras = %w[revista rails ruby Java perl]
+	palavras = %w[revista rails ruby Java perl]
 	palavras.delete("perl")
-</code></pre>
+
 	
 	* Nota: Se houver mais de uma entrada para a palavra a ser excluída, todas as ocorrências serão removidas.
 
 Se desejar fazer alguma validação antes de excluir algo do array, então utilize o método delete_if. Com ele, todos os elementos serão passados para bloco. Caso a condição contida dentro do bloco seja satisfeita, o elemento é deletado:
-
-<pre><code>palavras = %w[revista rails ruby Java perl]
+	palavras = %w[revista rails ruby Java perl]
 	palavras.delete_if{|palavra| palavra.length ## 5}
-</code></pre>
+
 	
 Quando se estiver trabalhando com pilhas e filas no ruby, pode ser necessário excluir o primeiro e/ou o último elemento do array. Para tais tarefas, existem os métodos shift e pop , respectivamente.
-
-<pre><code>numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+	numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 	numeros.pop
 	numeros.shift
-</code></pre>
+
 
 Quer apagar todo o array? Utilize o método clear:
-
-<pre><code>numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+	numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 	numeros.clear
-</code></pre>
+
 	
 ## Concatenando e Acionando valores a Arrays
 
 Para adicionar valores a um array, utilize o operador append "<<"
 
 Para adicionar um array ao outro, literalmente, ou seja, não apenas os valores, mas o array, utilize os métodos unshift e push para adicionar o array no início e no fim, respectivamente.
-
-<pre><code>array = %w[1 2 3 4 5] # => ["1", "2", "3", "4", "5"]
+	array = %w[1 2 3 4 5] # => ["1", "2", "3", "4", "5"]
 	array.unshift("a", "b") # => ["a", "b", "1", "2", "3", "4", "5"]
 	array.push("c", "d") # => ["a", "b", "1", "2", "3", "4", "5", "c", "d"]
-</code></pre>
+
 
 Agora, para somar o conteúdo de dois ou mais arrays, utilize o método + ou += ou concat. Mas, tenha em mente que os métodos += e << criam uma nova instância da classe.
-
-<pre><code>o = [1,2,3,4]
+	o = [1,2,3,4]
 	i = [3,4,5,6]
 	puts o.object_id #74025330
 	o += i
 	puts o.object_id #74057480
-</code></pre>
+
 	
 ## Iterando em um Array
 
 Muitas são as formas de se iterar um array. Vejamos algumas:
-
-<pre><code>	numeros = [1,2,3,4]
+	numeros = [1,2,3,4]
 	numeros.each { |num| puts num }
 	numeros.collect { |num| puts num }
-</code></pre>
+
 	
 Se desejar percorrer apenas pelo índice, utilize o método each_index
 
 ## Adicionando delimitadores
 
 Às vezes desejamos adicionar delimitadores entre os elementos contidos em um array para exibí-los para o usuário, por exemplo. Para tal tarefa, existe o método join.
-
-<pre><code>numeros = [1,2,3,4]
+	numeros = [1,2,3,4]
 	numeros.join() #=> 1234
 	numeros.join("-") #=> 1-2-3-4
-</code></pre>
+
 	
 ## Removendo elementos duplicados
 
 Você pode usar o método uniq:
-
-<pre><code>numeros = [1,2,3,4,2,3,8,9,7]
+	numeros = [1,2,3,4,2,3,8,9,7]
 	numeros.uniq  # [1, 2, 3, 4, 8, 9, 7]
-</code></pre>
+

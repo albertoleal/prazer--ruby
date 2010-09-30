@@ -146,8 +146,8 @@ Entretando, se for comparado arrays de diferentes tamanhos, e o "elemento estran
 
 * Nota: Para fazer comparações utilizando os métodos >, <, >=, <= é necessário definí-los via duck typing na classe Array, ou fazer com que a classe inclua o módulo Comparable, o que seria melhor: 
 	
-	class Array
-		include Comparable
+        class Array
+	include Comparable
 	end
 
 

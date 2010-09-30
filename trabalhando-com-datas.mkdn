@@ -1,0 +1,34 @@
+# Trabalhando com Datas
+
+É muito simples obter a hora e data atual com Ruby, para isso basta criar um objeto do tipo Time (ou chamando o método new ou now):
+	
+	hora_atual = Time.new
+	hora_atual = Time.now
+
+Para trabalhar com datas/horas no passado e no futuro, podemos utilizar o método mktime da classe Time:
+
+	mk = Time.mktime(2009,12,23,9,34,23) # Wed Dec 23 09:34:23 -0200 2009
+
+## Alguns métodos interessantes
+
+mon ou month - Retorna o mês do ano
+
+	time = Time.now
+	puts time.mon
+	puts time.month
+
+yday - Retorna um inteiro representanto o dia do ano
+
+	time = Time.now
+	puts time.yday
+
+wday - Retorna o dia da semana
+
+	time = Time.now
+	puts time.wday
+
+Existe uma outra forma de se recuperar o dia da semana:
+	
+	time = Time.now
+	array_time = time.to_a
+	puts array_time[6]

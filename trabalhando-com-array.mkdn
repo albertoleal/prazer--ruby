@@ -146,9 +146,9 @@ Entretando, se for comparado arrays de diferentes tamanhos, e o "elemento estran
 
 * Nota: Para fazer comparações utilizando os métodos >, <, >=, <= é necessário definí-los via duck typing na classe Array, ou fazer com que a classe inclua o módulo Comparable, o que seria melhor: 
 	
-	class Array
-		include Comparable
-	end
+        class Array
+        include Comparable
+        end
 
 
 ## Ordenando um Array
@@ -179,33 +179,33 @@ Existe a possibilidade de definir a forma como os elementos serão comparados. P
 * find_all == select -  Recupera todos os elementos encontrados para o critério informado.
 * grep - Recupera todos os elementos encontrados para o pattern passado.
 * reject - Retira os elementos do array.
-	
-	numeros = [1, 2, 3, 4, 5, 6]
-	numeros.detect { |elem| elem % 2 == 0 } # 2
-	numeros.select { |elem| elem % 2 == 0 } # 2, 4, 6
-	numeros.grep(2..4) # 2, 3, 4
-	numeros.reject { |elem| elem % 2 == 0 } # 1, 3, 5
+        numeros = [1, 2, 3, 4, 5, 6]
+        numeros.detect { |elem| elem % 2 == 0 } # 2
+        numeros.select { |elem| elem % 2 == 0 } # 2, 4, 6
+        numeros.grep(2..4) # 2, 3, 4
+        numeros.reject { |elem| elem % 2 == 0 } # 1, 3, 5
 
 	
 ## Mapeando um Array
 
 * Ao utilizar os métodos map ou collect, os elementos são "retirados" do array, porém o objeto original(numeros) não sofre nenhuma mudança, ou seja, seu contéudo continua lá. Somente se você utilizar (!)exclamação é que o objeto original será modificado. Está já é a segunda vez que falamos que métodos que terminam com ! modificam o estado original do objeto. Isso é do ruby, portanto grave isso ;)
-	numeros = %w[1, 2, 3, 4, 5, 6]
-	numeros.map! { |elem| puts elem } 
-	puts numerosnumeros = %w[1, 2, 3, 4, 5, 6]
-	numeros.collect! { |elem| puts elem }
-	pusts numeros
+        numeros = %w[1, 2, 3, 4, 5, 6]
+        numeros.map! { |elem| puts elem } 
+        puts numeros
+        numeros = %w[1, 2, 3, 4, 5, 6]
+        numeros.collect! { |elem| puts elem }
+        puts numeros
 
 
 ## Removendo elementos de um array
 
-* Repare que, quando iniciamos o nosso array utilizando %w, todos os elementos inseridos são do tipo string. Com isso, quando utilizamos o método compact! não funciona da forma como esperamos, que seria remover todos os elementos nulos do array:
-	numeros = %w[1, 2, nil, 3, 4, nil, nil, 5, 6] #nil será tratado como String.
-	numeros.compact!  
-	puts numeros #["1,", "2,", "nil,", "3,", "4,", "nil,", "nil,", "5,", "6"]
-	numeros = [1, 2, nil, 3, 4, nil, nil, 5, 6]
-	numeros.compact! 
-	puts numeros # [1, 2, 3, 4, 5, 6]
+* Repare que, quando iniciamos o nosso array utilizando %w, todos os elementos inseridos são do tipo string. Com isso, quando utilizamos o método compact! não funciona da forma como esperamos, que seria remover todos os elementos nulos do array: 
+        numeros = %w[1, 2, nil, 3, 4, nil, nil, 5, 6] #nil será tratado como String. 
+        numeros.compact! 
+        puts numeros #["1,","2,", "nil,", "3,", "4,", "nil,", "nil,", "5,", "6"]
+        numeros = [1, 2, nil, 3, 4, nil, nil, 5, 6]
+        numeros.compact! 
+        puts numeros # [1, 2, 3, 4, 5, 6]
 
 
 Caso você saiba o índice do elemento a ser deletado, utilize o método delete_at:

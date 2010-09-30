@@ -1,0 +1,113 @@
+# Trabalhando com Hashes
+	
+Hashes são conhecidos como arrays associativos. Mas então, o que difere Arrays de Hashes?
+Arrays são estruturas que criam associações entre um índice e um valor. E, os hashes são semelhantes, mas possuem algumas diferenças, tais como:
+	- Os índices dos arrays são inteiros, já os índices dos hashes, é permitido ter uma string como índice.
+	- Arrays são ordenados, e hashes não.
+
+## Criando um hash
+Assim como fazemos com o Array, para criar um Hash, utilizamos o método []:
+
+	h1 = Hash.[](“casa”,”carro”,”comida”)
+	h2 = Hash[“casa”,”carro”,”comida”]
+	h3 = Hash[“casa” => 1,”carro” => 2,”comida” => 3]
+	h4 = {“casa”,”carro”,”comida”}
+	h5 = {“casa” => 1,”carro” => 2,”comida” => 3}
+
+Existe também o método new, o qual aceita um parâmetro para indicar o valor default. Esse valor default não quer dizer que é o valor armazenado dentro do Hash, mas sim, o valor que é retornado ao invés quando o valor é nulo, caso o elemento solicitado seja nulo.
+	
+	h1 = Hash.new
+	h2 = Hash.new(10)
+	h3 = Hash.new(“casa” => 1)
+	h3.inspect #{}
+	puts h3[3] # “casa”
+
+Outra forma de se definir um valor default para o hash é chamando o método default:
+	
+	h1 = Hash.new(“valor_default”)
+	puts h1[9]; # valor_default
+	h1.default = “outro_valor”
+	puts h1[9]; # outro_valor
+
+## Acessando e Adicionando valores a um Hash
+
+Assim como a classe Array, a classe Hash possui os métodos [] e []= para adicionar elementos ao Hash. Se você olhar na api, verá um método store, ele é apenas um alias para o método []=
+
+	nb = Hash.new
+	nb[‘imovel’] = “casa”
+	nb.[]=(“imovel”,”casa”)
+	nb.store(“imovel”,”casa”)
+	h1.default = “outro_valor”
+	puts h1[9]; # outro_valor
+
+Uma maneira de se acessar um elemento dentro do hash é através do método fetch, passando como parâmetro o nome do índice desejado. Este método possui , ainda, um segundo parâmetro. Ele é utilizado, opcionalmente, para setar um valor a ser retornado, caso o elemento solicitado não seja encontrado, evitando IndexError:
+
+	nb = {“imovel” => “casa”, “carro” => “gol”}
+	nb.fetch ‘imovel’ # casa
+	nb.fetch ‘xpto’ # IndexError
+	nb.fetch ‘xpto’, "alô" # alô
+
+## Deletando Elementos em um Hash
+
+clear 		- Utilizado para deletar todos os elementos do hash
+delete 		- Utilizado para deletar um índice-valor específico
+delete_if - Utilizado para deletar um índice-valor, quando o bloco retorna true.
+shift 		- Utilizado para deletar o primeiro índice-valor encontrado
+
+	nb = {“imovel” => “casa”, “carro” => “gol”}
+	nb.clear
+	nb.delete(“carro”)
+	nb.delete_if{|k,v| v == “gol”}
+	nb.shift
+
+## Iterando um Hash
+
+A classe Hash possui alguns métodos para fazer iteração em seus elementos. Vejamos alguns:
+
+	nb = {“imovel” => “casa”, “carro” => “gol”}
+	nb.each{|k,v| puts ”Chave: #{k}, Valor: #{v}}
+	nb.each_key{|k| puts ”Chave: #{k}}
+	nb.each_value{|v| puts ”Valor: #{v}}
+
+## Alguns métodos interessantes
+
+invert - utilizado para inverter o par chave-valor
+
+	nb = {“imovel” => “casa”, “carro” => “gol”}
+	nb.invert # “ casa” => “ imovel”, “gol” => “ carro”}
+
+has_key? , member?, key?, include? - utilizado para verificar se a chave informada está contida no hash
+
+	nb = {“imovel” => “casa”, “carro” => “gol”}
+	nb.has_key? “imovel” # true
+	nb.member? “gol” # false
+
+length ou size - Retornar o tamanho do hash
+
+	nb = {“imovel” => “casa”, “carro” => “gol”}
+	nb.length #2
+
+empty? - retorna true ou false, se o hash está vazio ou não
+
+	nb = {“imovel” => “casa”, “carro” => “gol”}
+	nb.empty? #false
+
+to_a - converte o hash para array
+
+	nb = {“imovel” => “casa”, “carro” => “gol”}
+	nb.to_a # [“imovel”, ”casa”, “carro”, ”gol”]
+
+keys - converte apenas as chaves para array
+
+	nb = {“imovel” => “casa”, “carro” => “gol”}
+	nb.keys # [“imovel”,“carro”]
+
+values - converte apenas os valores para array
+
+	nb = {“imovel” => “casa”, “carro” => “gol”}
+	nb.values # [“casa”,“gol”]
+
+values_at - retornar uma array contendo os valores para as chaves passadas
+
+	nb = {“imovel” => “casa”, “carro” => “gol”}
+	nb.values_at(“carro”,”imovel”) # [“gol”, ”casa”]

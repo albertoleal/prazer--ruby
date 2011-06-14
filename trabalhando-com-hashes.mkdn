@@ -8,10 +8,10 @@ Arrays são estruturas que criam associações entre um índice e um valor. E, o
 ## Criando um hash
 Assim como fazemos com o Array, para criar um Hash, utilizamos o método []:
 
-	h1 = Hash.[](“casa”,”carro”,”comida”)
-	h2 = Hash[“casa”,”carro”,”comida”]
+	h1 = Hash.[](1=>“casa”,2=>”carro”,3=>”comida”)
+	h2 = Hash[1=>“casa”,2=>”carro”,3=>”comida”]
 	h3 = Hash[“casa” => 1,”carro” => 2,”comida” => 3]
-	h4 = {“casa”,”carro”,”comida”}
+	h4 = {1=>“casa”,2=>”carro”,3=>”comida”}
 	h5 = {“casa” => 1,”carro” => 2,”comida” => 3}
 
 Existe também o método new, o qual aceita um parâmetro para indicar o valor default. Esse valor default não quer dizer que é o valor armazenado dentro do Hash, mas sim, o valor que é retornado ao invés quando o valor é nulo, caso o elemento solicitado seja nulo.

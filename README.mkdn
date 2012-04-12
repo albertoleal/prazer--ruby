@@ -1,5 +1,5 @@
 ## Prazer, Ruby
-
+TESTE
 # O que é?
 Tudo começou com a idéia de pegar meus resumos pessoais de estudos e transformá-los em uma série de posts sobre Ruby, no meu blog. Percebi, então, que seria mais interessante tentar fazer uma espécie de apostila, junto com a comunidade, para aqueles que estão chegando na linguagem e não encontram muito material em Português.
 

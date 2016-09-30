@@ -5,7 +5,6 @@ Tudo começou com a idéia de pegar meus resumos pessoais de estudos e transform
 
 # Dúvidas e Sugestões?
 Dúvidas e sugestões podem ser enviadas diretamente para mim.
-http://www.albertoleal.eti.br/
 
 #Bibliografia
 Como citado, tudo o que está aqui é baseado nos meus resumos. Abaixo, listo os livros que li sobre Ruby:
